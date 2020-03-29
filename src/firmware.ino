@@ -36,7 +36,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <kinematics/kinematics.h>
 #include <odometry/odometry.h>
 
-champ::QuadrupedBase base(lf_leg, rf_leg, lh_leg, rh_leg, gait_config);
+champ::QuadrupedBase base(gait_config);
 champ::BodyController body_controller(base);
 champ::LegController leg_controller(base);
 champ::Kinematics kinematics(base);
@@ -44,6 +44,7 @@ champ::Odometry odometry(base);
 
 void setup()
 {
+    champ::URDF::loadFromHeader(base);
 }
 
 void loop() { 
@@ -60,7 +61,7 @@ void loop() {
 
         champ::Pose req_pose;
         command_interface.poseInput(req_pose);
-        req_pose.translation.z = NOMINAL_HEIGHT;
+        req_pose.position.z = NOMINAL_HEIGHT;
         body_controller.poseCommand(target_foot_positions, req_pose);
 
         champ::Velocities req_vel;

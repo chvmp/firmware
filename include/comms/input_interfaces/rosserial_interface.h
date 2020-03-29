@@ -94,7 +94,7 @@ namespace champ
                 pose_commands_.orientation.roll = pose_cmd_msg.roll;
                 pose_commands_.orientation.pitch = pose_cmd_msg.pitch;
                 pose_commands_.orientation.yaw = pose_cmd_msg.yaw;
-                pose_commands_.translation.z = pose_cmd_msg.z;
+                pose_commands_.position.z = pose_cmd_msg.z;
             }
 
             void jointsCommandCallback(const champ_msgs::Joints& joints_cmd_msg)
