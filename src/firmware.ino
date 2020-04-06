@@ -61,7 +61,16 @@ void loop() {
 
         champ::Pose req_pose;
         command_interface.poseInput(req_pose);
-        req_pose.position.z = NOMINAL_HEIGHT;
+        req_pose.position.z *= req_pose.position.z * gait_config.nominal_height;
+        if(req_pose.position.z == 0.0)
+        {
+            req_pose.position.z = gait_config.nominal_height;
+        }
+        else if(req_pose.position.z < (gait_config.nominal_height * 0.5))
+        {
+            req_pose.position.z = gait_config.nominal_height * 0.5;
+        }
+   
         body_controller.poseCommand(target_foot_positions, req_pose);
 
         champ::Velocities req_vel;
@@ -72,6 +81,7 @@ void loop() {
 
         command_interface.jointsInput(target_joint_positions);
         actuators.moveJoints(target_joint_positions);
+        status_interface.publishJointStates(target_joint_positions);
     }
 
     if ((micros() - prev_publish_time) >= 20000)
@@ -89,7 +99,6 @@ void loop() {
         odometry.getVelocities(current_speed);
         status_interface.publishVelocities(current_speed);
         status_interface.publishPoints(current_foot_positions);
-        status_interface.publishJointStates(current_joint_positions);
     }
 
     if ((micros() - prev_imu_time) >= 50000)
