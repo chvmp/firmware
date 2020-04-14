@@ -69,21 +69,21 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifdef USE_SERVO_ACTUATOR
     #include <actuators/digital_servo_plugin.h>
 
-    DigitalServo::Plugin lfh_actuator(LFH_PIN,-2.35619, 2.35619, 5, 15, false);
-    DigitalServo::Plugin lfu_actuator(LFU_PIN,-1.5708, PI, 2, 12, false);
-    DigitalServo::Plugin lfl_actuator(LFL_PIN,-0.785398, 2.35619, -6, -6, true);
+    DigitalServo::Plugin lfh_actuator(LFH_PIN, -2.1293, 2.1293, 2, false);
+    DigitalServo::Plugin lfu_actuator(LFU_PIN, -2.1293, 2.1293, 2, false);
+    DigitalServo::Plugin lfl_actuator(LFL_PIN, -2.1293, 2.1293, 22, false);
 
-    DigitalServo::Plugin rfh_actuator(RFH_PIN,-2.35619, 2.35619, 5, 15, false);
-    DigitalServo::Plugin rfu_actuator(RFU_PIN,-1.5708, PI, -5, 5, true);
-    DigitalServo::Plugin rfl_actuator(RFL_PIN,-2.35619, 0.785398, 5, 5, false);
+    DigitalServo::Plugin rfh_actuator(RFH_PIN, -2.1293, 2.1293, 2, false);
+    DigitalServo::Plugin rfu_actuator(RFU_PIN, -2.1293, 2.1293, 2, false);
+    DigitalServo::Plugin rfl_actuator(RFL_PIN, -2.1293, 2.1293, 22, false);
 
-    DigitalServo::Plugin lhh_actuator(LHH_PIN,-2.35619, 2.35619, 5, 15, false);
-    DigitalServo::Plugin lhu_actuator(LHU_PIN,-1.5708, PI, 9, 19, false);
-    DigitalServo::Plugin lhl_actuator(LHL_PIN,-0.785398, 2.35619, -7, -7, true);
+    DigitalServo::Plugin lhh_actuator(LHH_PIN, -2.1293, 2.1293, 2, false);
+    DigitalServo::Plugin lhu_actuator(LHU_PIN, -2.1293, 2.1293, 2, false);
+    DigitalServo::Plugin lhl_actuator(LHL_PIN, -2.1293, 2.1293, 22, false);
 
-    DigitalServo::Plugin rhh_actuator(RHH_PIN,-2.35619, 2.35619, 5, 15, false);
-    DigitalServo::Plugin rhu_actuator(RHU_PIN,-1.5708, PI, 8, 18, true);
-    DigitalServo::Plugin rhl_actuator(RHL_PIN, -2.35619, 0.785398, -4, -4, false);
+    DigitalServo::Plugin rhh_actuator(RHH_PIN, -2.1293, 2.1293, 2, false);
+    DigitalServo::Plugin rhu_actuator(RHU_PIN, -2.1293, 2.1293, 2, false);
+    DigitalServo::Plugin rhl_actuator(RHL_PIN, -2.1293, 2.1293, 22, false);
 
     Actuator<DigitalServo::Plugin> actuators
     (
