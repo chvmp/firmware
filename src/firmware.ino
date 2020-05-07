@@ -61,7 +61,7 @@ void loop() {
 
         champ::Pose req_pose;
         command_interface.poseInput(req_pose);
-        req_pose.position.z *= req_pose.position.z * gait_config.nominal_height;
+        req_pose.position.z = req_pose.position.z * gait_config.nominal_height;
         if(req_pose.position.z == 0.0)
         {
             req_pose.position.z = gait_config.nominal_height;
