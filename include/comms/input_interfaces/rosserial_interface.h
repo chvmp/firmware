@@ -109,13 +109,13 @@ namespace champ
 
             public:
                 ROSSerial():
-                    vel_cmd_sub_("champ/cmd_vel", &ROSSerial::velocityCommandCallback, this),
-                    pose_cmd_sub_("champ/cmd_pose", &ROSSerial::poseCommandCallback, this),
-                    joints_cmd_sub_("champ/cmd_joints", &ROSSerial::jointsCommandCallback, this),
-                    point_pub_("/champ/foot/raw", &point_msg_),
-                    jointstates_pub_("/champ/joint_states/raw", &joints_msg_),
-                    imu_pub_("/champ/imu/raw", &imu_msg_),
-                    vel_pub_("/champ/velocities/raw", &vel_msg_),
+                    vel_cmd_sub_("cmd_vel/smooth", &ROSSerial::velocityCommandCallback, this),
+                    pose_cmd_sub_("cmd_pose", &ROSSerial::poseCommandCallback, this),
+                    joints_cmd_sub_("cmd_joints", &ROSSerial::jointsCommandCallback, this),
+                    point_pub_("foot/raw", &point_msg_),
+                    jointstates_pub_("joint_states/raw", &joints_msg_),
+                    imu_pub_("imu/raw", &imu_msg_),
+                    vel_pub_("velocities/raw", &vel_msg_),
                     vel_cmd_active_(false),
                     joints_cmd_active_(false),
                     pose_cmd_active_(false)
