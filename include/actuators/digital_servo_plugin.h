@@ -41,23 +41,22 @@ namespace DigitalServo
         float min_angle_;
         float max_angle_;
         float offset_;
-        bool inverted_;
         int inverter_;
         public:
-            unsigned int leg_id;
             Plugin(int hardware_pin, float min_angle, float max_angle, int offset, bool inverted):
             current_angle_(0),    
             min_angle_(min_angle),
             max_angle_(max_angle),
             offset_(offset),
-            inverter_(1),
-            leg_id(0)
+            inverter_(1)
             {
                 delay(100);
             
-                if(inverted_)
-                    inverter_ *= -1;
-                
+                if(inverted)
+                {
+                    inverter_ = -1;
+                }
+
                 servo_.attach(hardware_pin);
             }
 
@@ -74,20 +73,18 @@ namespace DigitalServo
 
             int toActuatorAngle(float angle)
             {
-                
                 float actuator_angle = 0;
 
                 if(max_angle_ == 0)
                 {   
-                    actuator_angle =  map(angle, min_angle_, max_angle_, 180, 0);
+                    actuator_angle = map(angle, min_angle_, max_angle_, 180, 0);
                 }
                 else
                 {
-                    actuator_angle =  map(angle, min_angle_, max_angle_, 0, 180);
+                    actuator_angle = map(angle, min_angle_, max_angle_, 0, 180);
                 }
 
-                
-                actuator_angle =  round(actuator_angle) + offset_;
+                actuator_angle = round(actuator_angle) + offset_;
 
                 return actuator_angle;
             }
@@ -95,4 +92,3 @@ namespace DigitalServo
 }
 
 #endif
-
