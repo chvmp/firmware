@@ -71,7 +71,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     DigitalServo::Plugin lfh_actuator(LFH_PIN, -2.1293, 2.1293, 0,  LFH_INV);
     DigitalServo::Plugin lfu_actuator(LFU_PIN, -2.1293, 2.1293, 0,  LFU_INV);
-    DigitalServo::Plugin lfl_actuator(LFL_PIN, -2.1293, 2.1293, 22, LFL_INV);
+    DigitalServo::Plugin lfl_actuator(LFL_PIN, -2.1293, 2.1293, 24, LFL_INV);
 
     DigitalServo::Plugin rfh_actuator(RFH_PIN, -2.1293, 2.1293, 0,  RFH_INV);
     DigitalServo::Plugin rfu_actuator(RFU_PIN, -2.1293, 2.1293, 0,  RFU_INV);
@@ -79,7 +79,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     DigitalServo::Plugin lhh_actuator(LHH_PIN, -2.1293, 2.1293, 0,  LHH_INV);
     DigitalServo::Plugin lhu_actuator(LHU_PIN, -2.1293, 2.1293, 0,  LHU_INV);
-    DigitalServo::Plugin lhl_actuator(LHL_PIN, -2.1293, 2.1293, 22, LHL_INV);
+    DigitalServo::Plugin lhl_actuator(LHL_PIN, -2.1293, 2.1293, 24, LHL_INV);
 
     DigitalServo::Plugin rhh_actuator(RHH_PIN, -2.1293, 2.1293, 0,  RHH_INV);
     DigitalServo::Plugin rhu_actuator(RHU_PIN, -2.1293, 2.1293, 0,  RHU_INV);
