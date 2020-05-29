@@ -84,7 +84,7 @@ namespace DigitalServo
                     actuator_angle = map(angle, min_angle_, max_angle_, 0, 180);
                 }
 
-                actuator_angle = round(actuator_angle) + offset_;
+                actuator_angle = round(actuator_angle) + (inverter_ * offset_);
 
                 return actuator_angle;
             }
