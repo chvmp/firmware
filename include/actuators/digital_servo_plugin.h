@@ -49,9 +49,7 @@ namespace DigitalServo
             max_angle_(max_angle),
             offset_(offset),
             inverter_(1)
-            {
-                delay(100);
-            
+            {            
                 if(inverted)
                 {
                     inverter_ = -1;
