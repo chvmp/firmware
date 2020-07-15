@@ -43,7 +43,7 @@ namespace DigitalServo
         float offset_;
         int inverter_;
         public:
-            Plugin(int hardware_pin, float min_angle, float max_angle, int offset, bool inverted):
+            Plugin(int hardware_pin, float min_angle, float max_angle, float offset, bool inverted):
             current_angle_(0),    
             min_angle_(min_angle),
             max_angle_(max_angle),
@@ -61,7 +61,7 @@ namespace DigitalServo
             void positionControl(float angle)
             {
                 current_angle_ = angle;
-                servo_.write(toActuatorAngle(angle * inverter_));
+                servo_.writeMicroseconds(radiansToPWM((angle + offset_) * inverter_));
             }
 
             float getJointPosition()
@@ -69,22 +69,20 @@ namespace DigitalServo
                 return current_angle_;
             }
 
-            int toActuatorAngle(float angle)
+            int radiansToPWM(float angle)
             {
-                float actuator_angle = 0;
+                float pwm = 0;
 
                 if(max_angle_ == 0)
                 {   
-                    actuator_angle = map(angle, min_angle_, max_angle_, 180, 0);
+                    pwm = mapFloat(angle, min_angle_, max_angle_, 2500, 500);
                 }
                 else
                 {
-                    actuator_angle = map(angle, min_angle_, max_angle_, 0, 180);
+                    pwm = mapFloat(angle, min_angle_, max_angle_, 500, 2500);
                 }
 
-                actuator_angle = round(actuator_angle) + (inverter_ * offset_);
-
-                return actuator_angle;
+                return round(pwm);
             }
     };
 }
