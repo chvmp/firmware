@@ -120,10 +120,10 @@ namespace DynamixelAX12A
                 float actuator_angle = 0;
 
                 if(angle > 0)
-                    actuator_angle = map(angle, 180, 360, 0, PI);
+                    actuator_angle = mapFloat(angle, 180, 360, 0, PI);
 
                 else if(angle < 0)
-                    actuator_angle = map(angle, 0, 180, -PI, 0);
+                    actuator_angle = mapFloat(angle, 0, 180, -PI, 0);
 
                 else  
                     actuator_angle = 180;
