@@ -69,21 +69,21 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifdef USE_SERVO_ACTUATOR
     #include <actuators/digital_servo_plugin.h>
 
-    DigitalServo::Plugin lfh_actuator(LFH_PIN, -2.1293, 2.1293, LFH_OFFSET, LFH_INV);
-    DigitalServo::Plugin lfu_actuator(LFU_PIN, -2.1293, 2.1293, LFU_OFFSET, LFU_INV);
-    DigitalServo::Plugin lfl_actuator(LFL_PIN, -2.1293, 2.1293, LFL_OFFSET, LFL_INV);
+    DigitalServo::Plugin lfh_actuator(LFH_PIN, -2.35619, 2.35619, LFH_OFFSET, LFH_INV);
+    DigitalServo::Plugin lfu_actuator(LFU_PIN, -2.35619, 2.35619, LFU_OFFSET, LFU_INV);
+    DigitalServo::Plugin lfl_actuator(LFL_PIN, -2.35619, 2.35619, LFL_OFFSET, LFL_INV);
 
-    DigitalServo::Plugin rfh_actuator(RFH_PIN, -2.1293, 2.1293, RFH_OFFSET, RFH_INV);
-    DigitalServo::Plugin rfu_actuator(RFU_PIN, -2.1293, 2.1293, RFU_OFFSET, RFU_INV);
-    DigitalServo::Plugin rfl_actuator(RFL_PIN, -2.1293, 2.1293, RFL_OFFSET, RFL_INV);
+    DigitalServo::Plugin rfh_actuator(RFH_PIN, -2.35619, 2.35619, RFH_OFFSET, RFH_INV);
+    DigitalServo::Plugin rfu_actuator(RFU_PIN, -2.35619, 2.35619, RFU_OFFSET, RFU_INV);
+    DigitalServo::Plugin rfl_actuator(RFL_PIN, -2.35619, 2.35619, RFL_OFFSET, RFL_INV);
 
-    DigitalServo::Plugin lhh_actuator(LHH_PIN, -2.1293, 2.1293, LHH_OFFSET, LHH_INV);
-    DigitalServo::Plugin lhu_actuator(LHU_PIN, -2.1293, 2.1293, LHU_OFFSET, LHU_INV);
-    DigitalServo::Plugin lhl_actuator(LHL_PIN, -2.1293, 2.1293, LHL_OFFSET, LHL_INV);
+    DigitalServo::Plugin lhh_actuator(LHH_PIN, -2.35619, 2.35619, LHH_OFFSET, LHH_INV);
+    DigitalServo::Plugin lhu_actuator(LHU_PIN, -2.35619, 2.35619, LHU_OFFSET, LHU_INV);
+    DigitalServo::Plugin lhl_actuator(LHL_PIN, -2.35619, 2.35619, LHL_OFFSET, LHL_INV);
 
-    DigitalServo::Plugin rhh_actuator(RHH_PIN, -2.1293, 2.1293, RHH_OFFSET, RHH_INV);
-    DigitalServo::Plugin rhu_actuator(RHU_PIN, -2.1293, 2.1293, RHU_OFFSET, RHU_INV);
-    DigitalServo::Plugin rhl_actuator(RHL_PIN, -2.1293, 2.1293, RHL_OFFSET, RHL_INV);
+    DigitalServo::Plugin rhh_actuator(RHH_PIN, -2.35619, 2.35619, RHH_OFFSET, RHH_INV);
+    DigitalServo::Plugin rhu_actuator(RHU_PIN, -2.35619, 2.35619, RHU_OFFSET, RHU_INV);
+    DigitalServo::Plugin rhl_actuator(RHL_PIN, -2.35619, 2.35619, RHL_OFFSET, RHL_INV);
 
     Actuator<DigitalServo::Plugin> actuators
     (
