@@ -61,8 +61,8 @@ You can run the base controller by running:
 
     roslaunch <your_config_package> bringup.launch rviz:=true lite:=true
 
-The 'rviz' argument allows you to visualize the robot and debug the controller by using the foot's target position markers. This is set to false by default, so you don't need to pass this argument if no there's no visualization required.
+The 'rviz' argument allows you to visualize the robot and debug the controller by using the foot's target position markers. This is set to false by default, so you don't need to pass this argument if there's no visualization required.
 
 Don't forget to set the 'lite' argument to true as this tells the ROS package that you're using a lightweight version of the controller. You can permanently set this to true by editing bringup.launch found in your configuration package.
 
-You can check out the [ROS package](https://github.com/chvmp/champ) if you want to find out more about features.
+You can check out the [ROS package](https://github.com/chvmp/champ) to find out more about CHAMP's features.
