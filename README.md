@@ -17,14 +17,37 @@ Go to your configuration package folder and source the setup.bash. This helps th
 
 ## 3. Configuring gait paremeters and hardware components
 
-### Gait Parameters
+### 3.1 Gait Parameters
 
 Gait paremeters can be configured in gait_config.h found in the configuration package.
 
     cd <your_config_package>/include
     nano gait_config.h
 
-### Hardware Configuration
+**Knee Orientation** - How the knees should be bent. You can can configure the robot to follow the following orientation .>> .>< .<< .<> where dot is the front side of the robot.
+
+  **Max Linear Velocity X** (meters/second) - Robot's maximum forward/reverse speed.
+
+  **Max Linear Velocity Y** (meteres/second) - Robot's maximum speed when moving sideways.
+
+  **Max Angular Velocity Z** (radians/second)- Robot's maximum rotational speed.
+
+  **Stance Duration** (seconds)- How long should each leg spend on the ground while walking. You can set this to default(0.25) if you're not sure. The higher the stance duration the further the displacement is from the reference point.
+
+  **Leg Swing Height** (meters)- Trajectory height during swing phase.
+
+  **Leg Stance Height** (meters)- Trajectory depth during stance phase.
+
+  **Robot Walking Height** (meters) - Distance from hip to the ground while walking. Take note that setting this parameter too high can get your robot unstable.
+
+  **COM X Translation** (meters) - You can use this parameter to move the reference point in the X axis. This is useful when you want to compensate for the weight if the center of mass is not in the middle of the robot (from front hip to rear hip). For instance, if you find that the robot is heavier at the back, you'll set a negative value to shift the reference point to the back.
+
+  **Odometry Scaler** - You can use this parameter as a multiplier to the calculated velocities for dead reckoning. This can be useful to compensate odometry errors on open-loop systems. Normally this value ranges from 1.0 to 1.20.
+
+
+![CHAMP Setup Assistant](https://raw.githubusercontent.com/chvmp/champ_setup_assistant/master/docs/images/gait_parameters.png)
+
+### 3.2 Hardware Configuration
 
 Enabling the hardware components used in your build can be done in hardware_config.h found in the configuration package.
 
@@ -66,3 +89,15 @@ The 'rviz' argument allows you to visualize the robot and debug the controller b
 Don't forget to set the 'lite' argument to true as this tells the ROS package that you're using a lightweight version of the controller. You can permanently set this to true by editing bringup.launch found in your configuration package.
 
 You can check out the [ROS package](https://github.com/chvmp/champ) to find out more about CHAMP's features.
+
+## Credits
+
+Thanks to the following libraries:
+
+- [DynamixelAX12](https://github.com/sylvaing19/DynamixelAX12)
+
+- [BNO080](https://github.com/sparkfun/SparkFun_BNO080_Arduino_Library)
+
+- [OneWireInterface](https://github.com/sylvaing19/OneWireInterface)
+
+- [rosserial_arduino](http://wiki.ros.org/rosserial_arduino)
