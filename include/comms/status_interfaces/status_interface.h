@@ -1,8 +1,5 @@
 #ifndef STATUS_H
 #define STATUS_H
-
-
-#include <champ_msgs/Velocities.h>
 /*
 Copyright (c) 2019-2020, Juan Miguel Jimeno
 All rights reserved.
@@ -30,7 +27,6 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <champ_msgs/Pose.h>
 #include <champ_msgs/Joints.h>
 #include <geometry/geometry.h>
 
@@ -51,15 +47,15 @@ namespace champ
                         
                     }
 
-                    void publishPoints(geometry::Transformation foot_positions[4])
-                    {
-                        status_interface_->publishPoints(foot_positions);
-                    }
+                    // void publishPoints(geometry::Transformation foot_positions[4])
+                    // {
+                    //     status_interface_->publishPoints(foot_positions);
+                    // }
 
-                    void publishVelocities(champ::Velocities vel)
-                    {
-                        status_interface_->publishVelocities(vel);
-                    }
+                    // void publishVelocities(champ::Velocities vel)
+                    // {
+                    //     status_interface_->publishVelocities(vel);
+                    // }
 
                     void publishJointStates(float joint_positions[12])
                     {
@@ -70,6 +66,11 @@ namespace champ
                                     champ::Gyroscope &gyro, champ::Magnetometer &mag)
                     {
                         status_interface_->publishIMU(orientation, accel, gyro, mag);
+                    }
+
+                    void publishFootContacts(bool foot_contacts[4])
+                    {
+                        status_interface_->publishFootContacts(foot_contacts);
                     }
         };
     }

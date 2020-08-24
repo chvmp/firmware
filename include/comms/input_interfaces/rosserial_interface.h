@@ -40,6 +40,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <champ_msgs/Pose.h>
 #include <champ_msgs/Imu.h>
 #include <champ_msgs/Velocities.h>
+#include <champ_msgs/Contacts.h>
 
 namespace champ
 {
@@ -53,17 +54,20 @@ namespace champ
             ros::Subscriber<champ_msgs::Pose, ROSSerial> pose_cmd_sub_;
             ros::Subscriber<champ_msgs::Joints, ROSSerial> joints_cmd_sub_;
 
-            champ_msgs::PointArray point_msg_;
-            ros::Publisher point_pub_;
+            champ_msgs::Imu imu_msg_;
+            ros::Publisher imu_publisher_;
+
+            champ_msgs::Contacts contacts_msg_;
+            ros::Publisher contacts_publisher_;
 
             champ_msgs::Joints joints_msg_;
-            ros::Publisher jointstates_pub_;
+            ros::Publisher jointstates_publisher_;
 
-            champ_msgs::Imu imu_msg_;
-            ros::Publisher imu_pub_;
+            // champ_msgs::Velocities vel_msg_;
+            // ros::Publisher vel_publisher_;
 
-            champ_msgs::Velocities vel_msg_;
-            ros::Publisher vel_pub_;
+            // champ_msgs::PointArray point_msg_;
+            // ros::Publisher point_publisher_;
 
             champ::Velocities velocities_commands_;
             champ::Pose pose_commands_;
@@ -112,16 +116,18 @@ namespace champ
                     vel_cmd_sub_("cmd_vel/smooth", &ROSSerial::velocityCommandCallback, this),
                     pose_cmd_sub_("cmd_pose", &ROSSerial::poseCommandCallback, this),
                     joints_cmd_sub_("cmd_joints", &ROSSerial::jointsCommandCallback, this),
-                    point_pub_("foot/raw", &point_msg_),
-                    jointstates_pub_("joint_states/raw", &joints_msg_),
-                    imu_pub_("imu/raw", &imu_msg_),
-                    vel_pub_("velocities/raw", &vel_msg_),
+                    imu_publisher_("imu/raw", &imu_msg_),
+                    contacts_publisher_("foot_contacts", &contacts_msg_),
+                    jointstates_publisher_("joint_states/raw", &joints_msg_),
+                    // point_publisher_("foot/raw", &point_msg_),
+                    // vel_publisher_("velocities/raw", &vel_msg_),
                     vel_cmd_active_(false),
                     joints_cmd_active_(false),
                     pose_cmd_active_(false)
 
                 {
                     joints_msg_.position_length = 12;
+                    contacts_msg_.contacts_length = 4;
 
                     nh_.initNode();
                     nh_.getHardware()->setBaud(500000);
@@ -130,10 +136,12 @@ namespace champ
                     nh_.subscribe(pose_cmd_sub_);
                     nh_.subscribe(joints_cmd_sub_);
 
-                    nh_.advertise(point_pub_);
-                    nh_.advertise(jointstates_pub_);
-                    nh_.advertise(imu_pub_);
-                    nh_.advertise(vel_pub_);
+                    nh_.advertise(imu_publisher_);
+                    nh_.advertise(contacts_publisher_);
+                    nh_.advertise(jointstates_publisher_);
+
+                    // nh_.advertise(point_publisher_);
+                    // nh_.advertise(vel_publisher_);
 
                     nh_.loginfo("CHAMP ROS CLIENT CONNECTED");
                 }
@@ -215,40 +223,40 @@ namespace champ
                     nh_.spinOnce();
                 }
                 
-                void publishPoints(geometry::Transformation foot_positions[4])
-                {
-                    point_msg_.lf.x = foot_positions[0].X();
-                    point_msg_.lf.y = foot_positions[0].Y();
-                    point_msg_.lf.z = foot_positions[0].Z();
+                // void publishPoints(geometry::Transformation foot_positions[4])
+                // {
+                //     point_msg_.lf.x = foot_positions[0].X();
+                //     point_msg_.lf.y = foot_positions[0].Y();
+                //     point_msg_.lf.z = foot_positions[0].Z();
 
-                    point_msg_.rf.x = foot_positions[1].X();
-                    point_msg_.rf.y = foot_positions[1].Y();
-                    point_msg_.rf.z = foot_positions[1].Z();
+                //     point_msg_.rf.x = foot_positions[1].X();
+                //     point_msg_.rf.y = foot_positions[1].Y();
+                //     point_msg_.rf.z = foot_positions[1].Z();
 
-                    point_msg_.lh.x = foot_positions[2].X();
-                    point_msg_.lh.y = foot_positions[2].Y();
-                    point_msg_.lh.z = foot_positions[2].Z();
+                //     point_msg_.lh.x = foot_positions[2].X();
+                //     point_msg_.lh.y = foot_positions[2].Y();
+                //     point_msg_.lh.z = foot_positions[2].Z();
 
-                    point_msg_.rh.x = foot_positions[3].X();
-                    point_msg_.rh.y = foot_positions[3].Y();
-                    point_msg_.rh.z = foot_positions[3].Z();
+                //     point_msg_.rh.x = foot_positions[3].X();
+                //     point_msg_.rh.y = foot_positions[3].Y();
+                //     point_msg_.rh.z = foot_positions[3].Z();
 
-                    point_pub_.publish(&point_msg_);
-                }
+                //     point_publisher_.publish(&point_msg_);
+                // }
 
-                void publishVelocities(champ::Velocities vel)
-                {
-                    vel_msg_.linear_x = vel.linear.x;
-                    vel_msg_.linear_y = vel.linear.y;
-                    vel_msg_.angular_z = vel.angular.z;
+                // void publishVelocities(champ::Velocities vel)
+                // {
+                //     vel_msg_.linear_x = vel.linear.x;
+                //     vel_msg_.linear_y = vel.linear.y;
+                //     vel_msg_.angular_z = vel.angular.z;
 
-                    vel_pub_.publish(&vel_msg_);
-                }
+                //     vel_publisher_.publish(&vel_msg_);
+                // }
 
                 void publishJointStates(float joint_positions[12])
                 {
                     joints_msg_.position = joint_positions;
-                    jointstates_pub_.publish(&joints_msg_);  
+                    jointstates_publisher_.publish(&joints_msg_);  
                 }
 
                 void publishIMU(champ::Quaternion &orientation, champ::Accelerometer &accel, champ::Gyroscope &gyro, champ::Magnetometer &mag)
@@ -270,7 +278,14 @@ namespace champ
                     imu_msg_.magnetic_field.y = mag.y;
                     imu_msg_.magnetic_field.z = mag.z;
 
-                    imu_pub_.publish(&imu_msg_);
+                    imu_publisher_.publish(&imu_msg_);
+                }
+
+                void publishFootContacts(bool foot_contacts[4])
+                {
+                    contacts_msg_.contacts = foot_contacts;
+
+                    contacts_publisher_.publish(&contacts_msg_);
                 }
         };
     }

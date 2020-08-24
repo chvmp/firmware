@@ -34,13 +34,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <body_controller/body_controller.h>
 #include <leg_controller/leg_controller.h>
 #include <kinematics/kinematics.h>
-#include <odometry/odometry.h>
 
 champ::QuadrupedBase base(gait_config);
 champ::BodyController body_controller(base);
 champ::LegController leg_controller(base);
 champ::Kinematics kinematics(base);
-champ::Odometry odometry(base);
 
 void setup()
 {
@@ -86,19 +84,21 @@ void loop() {
     if ((micros() - prev_publish_time) >= 20000)
     {
         prev_publish_time = micros();
-
-        geometry::Transformation current_foot_positions[4];
+        
+        bool foot_contacts[4];
         float current_joint_positions[12];
-        champ::Velocities current_speed;
+
+        for(int i = 0; i < 4; i++)
+        {
+            if(base.legs[i]->gait_phase())
+                foot_contacts[i] = 1;
+            else
+                foot_contacts[i] = 0;
+        }
+        status_interface.publishFootContacts(foot_contacts);
 
         actuators.getJointPositions(current_joint_positions);
-        base.updateJointPositions(current_joint_positions);
-        base.getFootPositions(current_foot_positions);
-
-        odometry.getVelocities(current_speed);
-        status_interface.publishVelocities(current_speed);
-        status_interface.publishPoints(current_foot_positions);
-        status_interface.publishJointStates(target_joint_positions);
+        status_interface.publishJointStates(current_joint_positions);
     }
 
     if ((micros() - prev_imu_time) >= 50000)
