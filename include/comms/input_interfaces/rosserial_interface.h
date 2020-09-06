@@ -117,7 +117,7 @@ namespace champ
                     pose_cmd_sub_("cmd_pose", &ROSSerial::poseCommandCallback, this),
                     joints_cmd_sub_("cmd_joints", &ROSSerial::jointsCommandCallback, this),
                     imu_publisher_("imu/raw", &imu_msg_),
-                    contacts_publisher_("foot_contacts", &contacts_msg_),
+                    contacts_publisher_("foot_contacts/raw", &contacts_msg_),
                     jointstates_publisher_("joint_states/raw", &joints_msg_),
                     // point_publisher_("foot/raw", &point_msg_),
                     // vel_publisher_("velocities/raw", &vel_msg_),
