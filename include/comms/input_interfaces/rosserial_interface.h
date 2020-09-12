@@ -114,7 +114,7 @@ namespace champ
             public:
                 ROSSerial():
                     vel_cmd_sub_("cmd_vel/smooth", &ROSSerial::velocityCommandCallback, this),
-                    pose_cmd_sub_("cmd_pose", &ROSSerial::poseCommandCallback, this),
+                    pose_cmd_sub_("body_pose/raw", &ROSSerial::poseCommandCallback, this),
                     joints_cmd_sub_("cmd_joints", &ROSSerial::jointsCommandCallback, this),
                     imu_publisher_("imu/raw", &imu_msg_),
                     contacts_publisher_("foot_contacts/raw", &contacts_msg_),
